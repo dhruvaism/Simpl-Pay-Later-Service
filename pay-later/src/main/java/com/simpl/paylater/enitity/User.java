@@ -9,6 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table (name = "user")
@@ -30,6 +32,10 @@ public class User {
 
     @Column(name = "dues", nullable = false)
     private int dues;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_name", referencedColumnName = "name")
+    private List<Transaction> transactions = new ArrayList<>();
 
 
 

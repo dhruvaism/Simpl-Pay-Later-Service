@@ -24,16 +24,37 @@ public class MerchantController {
     }
 
 
+    /**
+     * This method takes a new merchant and add to the database
+     * @param merchant's details to be added
+     * @return Merchant details
+     */
     @PostMapping("/merchant/add")
     public ResponseEntity addMerchant(@RequestBody final MerchantRequestBody merchantRequestBody){
         Merchant merchant = this.merchantService.addMerchant(merchantRequestBody);
         return new ResponseEntity<>(new Response(merchant,"merchant added successfully",true), HttpStatus.CREATED);
     }
 
+
+    /**
+     * This method takes merchant name and new discount percentage and update to the database
+     * @param merchant name and discount percentage
+     * @return updated Merchant details
+     */
     @PutMapping("/merchant/update")
     public ResponseEntity updateDiscountPercentage(@RequestParam("name") String merchantName, @RequestBody final MerchantUpdateBody merchantUpdateBody){
         Merchant merchant = this.merchantService.updateDiscountPercentage(merchantName, merchantUpdateBody);
         return new ResponseEntity<>(new Response(merchant,"discount percentage updated successfully",true), HttpStatus.OK);
+    }
 
+    /**
+     * This method takes merchant name and return Merchant details
+     * @param merchant name
+     * @return Merchant details
+     */
+    @GetMapping("/merchant")
+    public ResponseEntity getMerchantByName(@RequestParam("name") String name){
+        Merchant merchant = this.merchantService.findMerchantByName(name);
+        return new ResponseEntity<>(new Response(merchant,true), HttpStatus.OK);
     }
 }

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "merchant")
@@ -24,5 +26,9 @@ public class Merchant {
 
     @Column(name = "discount", nullable = false)
     private double discount;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "merchant_name", referencedColumnName = "name")
+    private List<Transaction> transactions = new ArrayList<>();
 
 }
